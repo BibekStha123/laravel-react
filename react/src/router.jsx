@@ -5,6 +5,7 @@ import User from './views/User';
 import PageNotFound from './views/PageNotFound';
 import DefaultLayout from './views/components/DefaultLayout';
 import GuestLayout from './views/components/GuestLayout';
+import Dashboard from './views/Dashboard';
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
             {
                 path: '/user',
                 element: <User />
+            },
+            {
+                path: '/dashboard',
+                element: <Dashboard />
             },
         ]
     },
