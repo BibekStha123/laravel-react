@@ -5,9 +5,9 @@ function DefaultLayout() {
 
     const { user, token } = useStateContext();
 
-    // if (!token) {
-    //     return <Navigate to='/login' />
-    // }
+    if (!token) {
+        return <Navigate to='/login' />
+    }
 
     const onLogout = (e) => {
         e.preventDefault()
