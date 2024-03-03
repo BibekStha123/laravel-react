@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -28,14 +29,28 @@ class AuthController extends Controller
             'token' => $token
         ]);
     }
-    
+
     public function login(LoginRequest $request)
     {
+        $credentials = $request->validated();
 
+        if (Auth::attempt($credentials)) {
+            /** @var \App\Models\MyUserModel $user **/
+            $user = Auth::user();
+            $token = $user->createToken('main')->plainTextToken;
+
+            return response([
+                'user' => $user,
+                'token' => $token
+            ]);
+        }
+
+        return response([
+            'errors' => "Credentials does not match"
+        ], 401);
     }
 
     public function logout()
     {
-
     }
 }
