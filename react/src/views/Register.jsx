@@ -12,7 +12,7 @@ function Register() {
     const passwordRef = useRef();
     const passwordConfirmationRef = useRef();
 
-    const {setUser, setToken} = useStateContext()
+    const {setUsers, setToken} = useStateContext()
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -25,7 +25,7 @@ function Register() {
 
         axiosClient.post('/register', payload)
         .then(({data}) => {
-            setUser(data.user);
+            setUsers(data.user);
             setToken(data.token);
         }).catch((error) => {
             setErrors(error.response.data.errors)

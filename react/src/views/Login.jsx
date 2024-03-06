@@ -5,7 +5,7 @@ import { useStateContext } from './context/ContextProvider';
 
 function Login(props) {
 
-    const { setUser, setToken } = useStateContext();
+    const { setUsers, setToken } = useStateContext();
     const [errors, setErrors] = useState();
     const [errorStatus, setErrorStatus] = useState();
 
@@ -21,7 +21,7 @@ function Login(props) {
 
         axiosClient.post('/login', payload)
             .then(({data}) => {
-                setUser(data.user)
+                setUsers(data.user)
                 setToken(data.token)
             }).catch(({response}) => {
                 setErrors(response.data.errors)

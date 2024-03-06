@@ -5,7 +5,7 @@ import axiosClient from "../../axios-client";
 
 function DefaultLayout() {
 
-    const { user, token, setUser, setToken } = useStateContext();
+    const { users, token, setUsers, setToken } = useStateContext();
 
     if (!token) {
         return <Navigate to='/login' />
@@ -15,7 +15,7 @@ function DefaultLayout() {
         e.preventDefault()
         axiosClient.post('/logout')
         .then(({data}) => {
-            setUser({})
+            setUsers({})
             setToken(null)
         });
     }
@@ -23,7 +23,7 @@ function DefaultLayout() {
     useEffect(() => {
         axiosClient.get('/user')
         .then(({data}) => {
-            setUser(data);
+            setUsers(data);
         })
     }, [])
 
@@ -40,7 +40,7 @@ function DefaultLayout() {
                         Header
                     </div>
                     <div>
-                        {user.name}
+                        {users.name}
                         <a href="#" onClick={onLogout} className="btn-logout">Logout</a>
                     </div>
                 </header>
