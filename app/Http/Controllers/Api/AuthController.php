@@ -35,13 +35,12 @@ class AuthController extends Controller
         $credentials = $request->validated();
 
         if (Auth::attempt($credentials)) {
-            /** @var \App\Models\MyUserModel $user **/
+            /** @var \App\Models\User $user **/
             $user = Auth::user();
             $token = $user->createToken('main')->plainTextToken;
-
             return response([
                 'user' => $user,
-                'token' => $token
+                'token' => $token,
             ]);
         }
 
@@ -50,7 +49,11 @@ class AuthController extends Controller
         ], 401);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        /** @var \App\Models\User $user */
+        $user = $request->user();
+        $user->currentAccessToken()->delete;
+        return response('', 200);
     }
 }
